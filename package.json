@@ -31,5 +31,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "browser":[".ts"]
+  "browser": [
+    ".ts"
+  ]
 }

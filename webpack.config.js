@@ -58,7 +58,7 @@ module.exports = {
     hot: true,
   },
   mode: "development",
-  target: "web",
+  target: "web", //解决不能热刷新
   resolve: {
     extensions: [".ts", ".js"],
   },

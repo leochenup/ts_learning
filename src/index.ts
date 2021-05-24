@@ -3,5 +3,7 @@ import './class.ts'
 import './decorator.ts'
 import './abstract'
 import './interface'
+import './generic'
+import './structureCheck'
 
 

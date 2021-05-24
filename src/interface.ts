@@ -1,5 +1,11 @@
+/**
+ * 注意：class 的 super 有两种指向，在静态方法和构造函数中 super指向父类，
+ *      在普通函数中指向父类的prototype 
+ */
+
+
 import { clear } from './utile'
-// clear()
+clear()
 /**
  * 接口
  * 接口里面只能放方法的定义，不能实现（都是抽象方法）
@@ -47,4 +53,131 @@ namespace a {
     let std = new Student()
     std.speak()
     std.eat()
+}
+
+/**
+ * 任意属性
+ * [p: string]: any
+ * 随便什么属性都行
+ */
+
+namespace b {
+    clear()
+    interface Test {
+        [p: string]: number
+    }
+
+    let obj: Test = {
+        x: 1, y: 2, z: 3,
+    }
+}
+
+/**
+ * 接口继承
+ * 实现接口的类必须把接口父类中的抽象方法也实现
+ */
+namespace c {
+    interface Speakable {
+        speak(): void
+    }
+    interface SpeakChinese extends Speakable {
+        speakChinses(): void
+    }
+
+    class Person implements SpeakChinese {
+        speakChinses() {
+
+        }
+        speak() {
+
+        }
+    }
+}
+
+/**
+ * 接口 readOnly
+ */
+
+namespace d {
+    interface Cricle {
+        readonly PI: number
+        raduis: number
+    }
+
+    let c: Cricle = {
+        PI: 3.14, // 不可改变
+        raduis: 10
+    }
+
+}
+
+
+/**
+ * 接口约束函数
+ * 
+ */
+namespace e {
+    interface Fn {
+        (a: number): number // 约束函数
+    }
+    let fn: Fn = (a: number): number => {
+        return a
+    }
+}
+
+
+/**
+ * 可索引接口
+ * 对数组和对象进行约束
+ */
+namespace f {
+    clear()
+    interface Users {
+        [i: number]: string
+    }
+    let users: Users = ["leo", "tom"] //约束数组
+
+    let obj: Users = {
+        0: 'tom',
+        1: "jack"
+    }
+
+    console.log(obj, users)
+}
+
+/**
+ * 类接口
+ * 用来约束类 
+ */
+namespace g {
+    clear()
+    interface Speakable {
+        name: string
+        speak(words: string): void
+    }
+
+    //约束类不带构造函数
+    class Dog implements Speakable {
+        name: string = 'leo'
+        speak() {
+
+        }
+    }
+
+    class Animal {
+        constructor(public name: string) {
+            this.name = name
+        }
+    }
+
+    //约束带构造函数的类 用来约束类 (实质是约束构造函数)
+    interface WithName {
+        new(name: string): Animal
+    }
+    //约束带构造函数的类，传入的_class是 <T extends WithName> 类型,_class 的构造函数必须满足 WithName接口规范
+    function createAnimal<T extends WithName>(_class: T, name: string): any {
+        return new _class(name)
+    }
+    let a = createAnimal(Animal, "dog1")
+    console.log(a)
 }
